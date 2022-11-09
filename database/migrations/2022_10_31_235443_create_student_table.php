@@ -24,13 +24,11 @@ class CreateStudentTable extends Migration
             $table->string('link', 200)->nullable();
             $table->string('title', 200)->nullable();
             $table->string('about', 500)->nullable();
-            $table->bigInteger('student_skillset_id')->unsigned();
             $table->timestamps();
         });
 
         Schema::table('student', function($table) {
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('student_skillset_id')->references('id')->on('skillset');
         });
     }
 
