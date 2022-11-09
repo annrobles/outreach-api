@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\User;
 
 class Company extends Model
 {
@@ -21,4 +22,9 @@ class Company extends Model
         'contact_number',
         'availability'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

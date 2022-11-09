@@ -85,7 +85,7 @@ class AuthController extends Controller
                 ], 401);
             }
 
-            $user = User::where('email', $request->email)->first();
+            $user = User::where('email', $request->email)->with('userType')->first();
 
             return response()->json([
                 'status' => true,

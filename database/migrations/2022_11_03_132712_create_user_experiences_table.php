@@ -20,8 +20,8 @@ class CreateUserExperiencesTable extends Migration
             $table->string('company_name', 50)->nullable();
             $table->string('location', 100)->nullable();
             $table->text('description')->nullable();
-            $table->date('start_date')->default(DB::raw('NOW()'));
-            $table->date('end_date')->default(DB::raw('NOW()'));
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
             $table->timestamps();
         });
 
