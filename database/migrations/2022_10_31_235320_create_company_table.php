@@ -19,6 +19,7 @@ class CreateCompanyTable extends Migration
             $table->string('about', 500)->nullable();
             $table->string('link', 200)->nullable();
             $table->string('email', 50)->unique();
+            $table->string('availability', 200)->nullable();
             $table->string('contact_number', 15)->nullable();
             $table->bigInteger('company_skillset_id')->nullable()->unsigned();
             $table->timestamps();
