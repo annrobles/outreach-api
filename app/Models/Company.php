@@ -20,7 +20,9 @@ class Company extends Model
         'link',
         'email',
         'contact_number',
-        'availability'
+        'availability',
+        'status',
+        'name'
     ];
 
     public function user()
