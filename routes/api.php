@@ -36,4 +36,5 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::apiResource('company', 'CompanyController');
     Route::apiResource('student', 'StudentController');
     Route::apiResource('skillset', 'SkillsetController');
+    Route::apiResource('userLocation', 'UserLocationController');
 });
