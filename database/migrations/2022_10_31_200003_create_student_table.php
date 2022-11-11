@@ -23,7 +23,7 @@ class CreateStudentTable extends Migration
             $table->string('email', 50)->unique();
             $table->string('link', 200)->nullable();
             $table->string('title', 200)->nullable();
-            $table->string('about', 500)->nullable();
+            $table->text('about')->nullable();
             $table->timestamps();
         });
 

@@ -15,12 +15,12 @@ class Company extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'user_id',
-        'about',
+        'student_id',
+        'job_description',
         'link',
         'email',
         'contact_number',
-        'availability',
+        'source',
         'status',
         'name'
     ];

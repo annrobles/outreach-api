@@ -55,6 +55,7 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
+        $student->load('companies');
         return response()->json([
             'status' => true,
             'student' => $student

@@ -15,19 +15,19 @@ class CreateCompanyTable extends Migration
     {
         Schema::create('company', function (Blueprint $table) {
             $table->id()->autoIncrement();
-            $table->bigInteger('user_id')->unsigned();
+            $table->bigInteger('student_id')->unsigned();
             $table->string('name', 200);
-            $table->string('about', 500)->nullable();
+            $table->text('job_description')->nullable();
             $table->string('link', 200)->nullable();
             $table->string('email', 50)->unique();
-            $table->string('availability', 200)->nullable();
+            $table->string('source', 200)->nullable();
             $table->string('contact_number', 15)->nullable();
             $table->bigInteger('status')->nullable();
             $table->timestamps();
         });
 
         Schema::table('company', function($table) {
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('student_id')->references('id')->on('student');
         });
     }
 

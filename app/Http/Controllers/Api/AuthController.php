@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 
 use App\User;
+use App\Models\Student;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -41,11 +42,17 @@ class AuthController extends Controller
                 'user_type_id' => $request->user_type_id
             ]);
 
+            $student =  Student::create([
+                'email' => $request->email,
+                'user_id' => $user->id
+            ]);
+
             return response()->json([
                 'status' => true,
                 'message' => 'User Created Successfully',
                 'token' => $user->createToken("API TOKEN")->plainTextToken,
-                'user' => $user
+                'user' => $user,
+                'student' => $student
             ], 200);
 
         } catch (\Throwable $th) {
@@ -85,7 +92,7 @@ class AuthController extends Controller
                 ], 401);
             }
 
-            $user = User::where('email', $request->email)->with('userType')->first();
+            $user = User::where('email', $request->email)->with('userType', 'student')->first();
 
             return response()->json([
                 'status' => true,

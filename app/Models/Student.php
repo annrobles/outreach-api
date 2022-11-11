@@ -22,7 +22,14 @@ class Student extends Model
         'email',
         'link',
         'title',
-        'about',
-        'availability'
+        'about'
     ];
+
+    /**
+     * Get the comments for the blog post.
+     */
+    public function companies()
+    {
+        return $this->hasMany(Company::class);
+    }
 }

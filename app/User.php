@@ -7,6 +7,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\UserType;
+use App\Models\Company;
+use App\Models\Student;
 
 class User extends Authenticatable
 {
@@ -46,5 +48,13 @@ class User extends Authenticatable
     public function userType()
     {
         return $this->belongsTo(UserType::class);
+    }
+
+    /**
+     * Get the comments for the blog post.
+     */
+    public function student()
+    {
+        return $this->hasOne(Student::class);
     }
 }
