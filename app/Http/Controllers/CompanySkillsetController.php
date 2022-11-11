@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Company;
+use App\Models\CompanySkillset;
 use Illuminate\Http\Request;
 
-class CompanyController extends Controller
+class CompanySkillsetController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +16,7 @@ class CompanyController extends Controller
     {
         return response()->json([
             'status' => true,
-            'company' => Company::with('user')->get()
+            'skillsNeed' => CompanySkillset::with('skill')->get()
         ]);
     }
 
@@ -38,37 +38,36 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
-        $company = Company::create($request->all());
+        $skillset = CompanySkillset::create($request->all());
 
         return response()->json([
             'status' => true,
-            'message' => "Company Created successfully!",
-            'company' => $company
+            'message' => "Company skillset need created successfully!",
+            'skillset' => $skillset
         ], 200);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Company  $company
+     * @param  \App\Models\CompanySkillset  $companySkillset
      * @return \Illuminate\Http\Response
      */
-    public function show(Company $company)
+    public function show(CompanySkillset $companySkillset)
     {
-        $company->load('skillsets','skillsets.skill');
         return response()->json([
             'status' => true,
-            'company' => $company
+            'skillsetNeed' => $companySkillset
         ], 200);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Company  $company
+     * @param  \App\Models\CompanySkillset  $companySkillset
      * @return \Illuminate\Http\Response
      */
-    public function edit(Company $company)
+    public function edit(CompanySkillset $companySkillset)
     {
         //
     }
@@ -77,33 +76,33 @@ class CompanyController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Company  $company
+     * @param  \App\Models\CompanySkillset  $skillsetNeed
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Company $company)
+    public function update(Request $request, CompanySkillset $companySkillset)
     {
-        $company->update($request->all());
+        $companySkillset->update($request->all());
 
         return response()->json([
             'status' => true,
-            'message' => "Company Updated successfully!",
-            'company' => $company
+            'message' => "Company Skillset Updated successfully!",
+            'skillset' => $companySkillset
         ], 200);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Company  $company
+     * @param  \App\Models\CompanySkillset  $skillsetNeed
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Company $company)
+    public function destroy(CompanySkillset $skillsetNeed)
     {
-        $company->delete();
+        $skillsetNeed->delete();
 
         return response()->json([
             'status' => true,
-            'message' => "Company Deleted successfully!",
+            'message' => "Company Skillset deleted successfully!",
         ], 200);
     }
 }

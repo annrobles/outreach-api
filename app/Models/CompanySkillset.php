@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class StudentSkillset extends Model
+class CompanySkillset extends Model
 {
-    public $table = 'student_skillset';
+    public $table = 'company_skillset_need';
 
     /**
      * The attributes that are mass assignable.
@@ -14,7 +14,7 @@ class StudentSkillset extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'student_id',
+        'company_id',
         'skillset_id',
         'total_years_experience'
     ];
@@ -26,7 +26,6 @@ class StudentSkillset extends Model
 
     public function company()
     {
-        return $this->hasOne(Student::class,'id', 'student_id');
+        return $this->hasOne(Company::class,'id', 'company_id');
     }
-
 }

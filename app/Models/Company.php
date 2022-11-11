@@ -30,4 +30,12 @@ class Company extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    /**
+     * Get the comments for the blog post.
+     */
+    public function skillsets()
+    {
+        return $this->hasMany(CompanySkillset::class);
+    }
 }
