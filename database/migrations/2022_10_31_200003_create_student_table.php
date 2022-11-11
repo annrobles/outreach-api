@@ -21,7 +21,6 @@ class CreateStudentTable extends Migration
             $table->string('contact_number', 15)->nullable();
             $table->string('email', 50)->unique();
             $table->string('link', 200)->nullable();
-            $table->string('title', 200)->nullable();
             $table->text('about')->nullable();
             $table->timestamps();
         });

@@ -21,7 +21,6 @@ class Student extends Model
         'contact_number',
         'email',
         'link',
-        'title',
         'about'
     ];
 

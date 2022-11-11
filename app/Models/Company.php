@@ -21,6 +21,7 @@ class Company extends Model
         'email',
         'contact_number',
         'source',
+        'other_specify',
         'status',
         'name'
     ];
