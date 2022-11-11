@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Student;
+use App\Models\StudentSkillset;
 use Illuminate\Http\Request;
 
-class StudentController extends Controller
+class StudentSkillsetController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +16,7 @@ class StudentController extends Controller
     {
         return response()->json([
             'status' => true,
-            'student' => Student::all()
+            'skillsNeed' => StudentSkillset::all()
         ]);
     }
 
@@ -38,37 +38,37 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        $student = Student::create($request->all());
+        $skillset = StudentSkillset::create($request->all());
 
         return response()->json([
             'status' => true,
-            'message' => "Student Created successfully!",
-            'student' => $student
+            'message' => "Student skillset need created successfully!",
+            'skillset' => $skillset
         ], 200);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Student  $student
+     * @param  \App\Models\StudentSkillset  $studentSkillset
      * @return \Illuminate\Http\Response
      */
-    public function show(Student $student)
+    public function show(StudentSkillset $studentSkillset)
     {
-        $student->load('companies', 'skillsets','skillsets.skill');
+        $studentSkillset->load('skill');
         return response()->json([
             'status' => true,
-            'student' => $student
+            'skillsetNeed' => $studentSkillset
         ], 200);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Student  $student
+     * @param  \App\Models\StudentSkillset  $studentSkillset
      * @return \Illuminate\Http\Response
      */
-    public function edit(Student $student)
+    public function edit(StudentSkillset $studentSkillset)
     {
         //
     }
@@ -77,33 +77,33 @@ class StudentController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Student  $student
+     * @param  \App\Models\StudentSkillset  $studentSkillset
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Student $student)
+    public function update(Request $request, StudentSkillset $studentSkillset)
     {
-        $student->update($request->all());
+        $studentSkillset->update($request->all());
 
         return response()->json([
             'status' => true,
-            'message' => "Student Updated successfully!",
-            'student' => $student
+            'message' => "Student Skillset Updated successfully!",
+            'skillset' => $studentSkillset
         ], 200);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Student  $student
+     * @param  \App\Models\StudentSkillset  $studentSkillset
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Student $student)
+    public function destroy(StudentSkillset $studentSkillset)
     {
-        $student->delete();
+        $studentSkillset->delete();
 
         return response()->json([
             'status' => true,
-            'message' => "Student Deleted successfully!",
+            'message' => "Student Skillset deleted successfully!",
         ], 200);
     }
 }

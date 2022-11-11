@@ -31,4 +31,12 @@ class Student extends Model
     {
         return $this->hasMany(Company::class);
     }
+
+    /**
+     * Get the comments for the blog post.
+     */
+    public function skillsets()
+    {
+        return $this->hasMany(StudentSkillset::class);
+    }
 }
