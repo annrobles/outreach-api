@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Company;
+use App\Models\StudentRank;
 use Illuminate\Http\Request;
 
-class CompanyController extends Controller
+class StudentRankController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +16,7 @@ class CompanyController extends Controller
     {
         return response()->json([
             'status' => true,
-            'company' => Company::with('user')->get()
+            'studentRank' => StudentRank::all()
         ]);
     }
 
@@ -38,37 +38,36 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
-        $company = Company::create($request->all());
+        $studentRank = StudentRank::create($request->all());
 
         return response()->json([
             'status' => true,
-            'message' => "Company Created successfully!",
-            'company' => $company
+            'message' => "Student rank created successfully!",
+            'studentRank' => $studentRank
         ], 200);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Company  $company
+     * @param  \App\Models\StudentRank  $studentRank
      * @return \Illuminate\Http\Response
      */
-    public function show(Company $company)
+    public function show(StudentRank $studentRank)
     {
-        $company->load('skillsets','skillsets.skill','rankings','rankings.student');
         return response()->json([
             'status' => true,
-            'company' => $company
+            'studentRank' => $studentRank
         ], 200);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Company  $company
+     * @param  \App\Models\StudentRank  $studentRank
      * @return \Illuminate\Http\Response
      */
-    public function edit(Company $company)
+    public function edit(StudentRank $studentRank)
     {
         //
     }
@@ -77,33 +76,33 @@ class CompanyController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Company  $company
+     * @param  \App\Models\StudentRank  $studentRank
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Company $company)
+    public function update(Request $request, StudentRank $studentRank)
     {
-        $company->update($request->all());
+        $studentRank->update($request->all());
 
         return response()->json([
             'status' => true,
-            'message' => "Company Updated successfully!",
-            'company' => $company
+            'message' => "Student rank Updated successfully!",
+            'studentRank' => $studentRank
         ], 200);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Company  $company
+     * @param  \App\Models\StudentRank  $studentRank
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Company $company)
+    public function destroy(StudentRank $studentRank)
     {
-        $company->delete();
+        $studentRank->delete();
 
         return response()->json([
             'status' => true,
-            'message' => "Company Deleted successfully!",
+            'message' => "Student rank deleted successfully!",
         ], 200);
     }
 }

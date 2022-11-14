@@ -38,4 +38,12 @@ class Company extends Model
     {
         return $this->hasMany(CompanySkillset::class);
     }
+
+    /**
+     * Get the comments for the blog post.
+     */
+    public function rankings()
+    {
+        return $this->hasMany(StudentRank::class);
+    }
 }
