@@ -40,4 +40,12 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::apiResource('studentSkillset', 'StudentSkillsetController');
     Route::apiResource('studentRank', 'StudentRankController');
     Route::apiResource('companySkillset', 'CompanySkillsetController');
+
+    Route::post('jobs', 'JobsController@store');
+    Route::put('jobs/{jobs}', 'JobsController@update');
+    Route::delete('jobs/{jobs}', 'JobsController@destroy');
 });
+
+
+Route::get('jobs', 'JobsController@index');
+Route::get('jobs/{jobs}', 'JobsController@show');
