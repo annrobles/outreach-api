@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Company;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class CompanyController extends Controller
 {
@@ -38,6 +39,12 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
+        $validate = $this->validateForm($request);
+
+        if (!$validate->getData()->status) {
+            return $validate;
+        }
+
         $company = Company::create($request->all());
 
         return response()->json([
@@ -82,6 +89,12 @@ class CompanyController extends Controller
      */
     public function update(Request $request, Company $company)
     {
+        $validate = $this->validateForm($request);
+
+        if (!$validate->getData()->status) {
+            return $validate;
+        }
+
         $company->update($request->all());
 
         return response()->json([
@@ -106,4 +119,34 @@ class CompanyController extends Controller
             'message' => "Company Deleted successfully!",
         ], 200);
     }
+
+    private function validateForm($request) {
+
+        $response =  response()->json([
+            'status' => true
+        ], 200);
+
+        try {
+            //Validated
+            $validate = Validator::make($request->all(),
+            [
+                'email' => 'required|email|unique:student,email'
+            ]);
+            if($validate->fails()){
+                $response = response()->json([
+                    'status' => false,
+                    'message' => 'validation error',
+                    'errors' => $validate->errors()
+                ], 401);
+            }
+        } catch (\Throwable $th) {
+            $response = response()->json([
+                'status' => false,
+                'message' => $th->getMessage()
+            ], 500);
+        }
+        return $response;
+
+    }
+
 }
