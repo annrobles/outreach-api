@@ -9,6 +9,7 @@ use Laravel\Sanctum\HasApiTokens;
 use App\Models\UserType;
 use App\Models\Company;
 use App\Models\Student;
+use App\Models\Jobs;
 
 class User extends Authenticatable
 {
@@ -51,10 +52,18 @@ class User extends Authenticatable
     }
 
     /**
-     * Get the comments for the blog post.
+     * Get all students.
      */
     public function student()
     {
         return $this->hasOne(Student::class);
+    }
+
+    /**
+     * Get all jobs.
+     */
+    public function jobs()
+    {
+        return $this->hasMany(Jobs::class);
     }
 }

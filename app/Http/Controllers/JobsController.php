@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Models\Jobs;
 use Illuminate\Http\Request;
 
@@ -60,6 +61,23 @@ class JobsController extends Controller
             'status' => true,
             'jobs' => $jobs
         ], 200);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function showByUser(User $user)
+    {
+        // dd($user);
+        $user->load('jobs', 'jobs.user');
+        return response()->json([
+            'status' => true,
+            'user_created_jobs' => $user->jobs
+        ], 200);
+
     }
 
     /**

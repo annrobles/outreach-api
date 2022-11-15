@@ -49,3 +49,4 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
 Route::get('jobs', 'JobsController@index');
 Route::get('jobs/{jobs}', 'JobsController@show');
+Route::get('jobs/user/{user}', 'JobsController@showByUser');
