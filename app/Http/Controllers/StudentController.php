@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class StudentController extends Controller
 {
@@ -38,6 +39,13 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
+        $validate = $this->validateForm($request);
+
+
+        if (!$validate->getData()->status) {
+            return $validate;
+        }
+
         $student = Student::create($request->all());
 
         return response()->json([
@@ -45,6 +53,7 @@ class StudentController extends Controller
             'message' => "Student Created successfully!",
             'student' => $student
         ], 200);
+
     }
 
     /**
@@ -82,6 +91,12 @@ class StudentController extends Controller
      */
     public function update(Request $request, Student $student)
     {
+        $validate = $this->validateForm($request);
+
+        if (!$validate->getData()->status) {
+            return $validate;
+        }
+
         $student->update($request->all());
 
         return response()->json([
@@ -105,5 +120,34 @@ class StudentController extends Controller
             'status' => true,
             'message' => "Student Deleted successfully!",
         ], 200);
+    }
+
+    private function validateForm($request) {
+
+        $response =  response()->json([
+            'status' => true
+        ], 200);
+
+        try {
+            //Validated
+            $validateUser = Validator::make($request->all(),
+            [
+                'email' => 'required|email|unique:student,email'
+            ]);
+            if($validateUser->fails()){
+                $response = response()->json([
+                    'status' => false,
+                    'message' => 'validation error',
+                    'errors' => $validateUser->errors()
+                ], 401);
+            }
+        } catch (\Throwable $th) {
+            $response = response()->json([
+                'status' => false,
+                'message' => $th->getMessage()
+            ], 500);
+        }
+        return $response;
+
     }
 }
