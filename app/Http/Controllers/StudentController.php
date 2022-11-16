@@ -39,6 +39,10 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
+        $request->merge([
+            'id' => 0,
+        ]);
+
         $validate = $this->validateForm($request);
 
 
@@ -91,6 +95,9 @@ class StudentController extends Controller
      */
     public function update(Request $request, Student $student)
     {
+        $request->merge([
+            'id' => $student->id,
+        ]);
         $validate = $this->validateForm($request);
 
         if (!$validate->getData()->status) {
@@ -127,13 +134,20 @@ class StudentController extends Controller
         $response =  response()->json([
             'status' => true
         ], 200);
+        $validation = array();
 
+        if ($request->get('id') > 0) {
+            $validation = [
+                'email' => 'required|email|unique:student,email,'.$request->get('id')
+            ];
+        } else {
+            $validation = [
+                'email' => 'required|email|unique:student,email'
+            ];
+        }
         try {
             //Validated
-            $validateUser = Validator::make($request->all(),
-            [
-                'email' => 'required|email|unique:student,email'
-            ]);
+            $validateUser = Validator::make($request->all(), $validation);
             if($validateUser->fails()){
                 $response = response()->json([
                     'status' => false,
