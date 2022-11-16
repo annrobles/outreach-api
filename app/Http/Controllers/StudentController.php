@@ -134,6 +134,7 @@ class StudentController extends Controller
         $response =  response()->json([
             'status' => true
         ], 200);
+
         $validation = array();
 
         if ($request->get('id') > 0) {

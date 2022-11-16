@@ -39,6 +39,10 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
+        $request->merge([
+            'id' => 0,
+        ]);
+
         $validate = $this->validateForm($request);
 
         if (!$validate->getData()->status) {
@@ -89,6 +93,10 @@ class CompanyController extends Controller
      */
     public function update(Request $request, Company $company)
     {
+        $request->merge([
+            'id' => $company->id,
+        ]);
+
         $validate = $this->validateForm($request);
 
         if (!$validate->getData()->status) {
@@ -126,12 +134,22 @@ class CompanyController extends Controller
             'status' => true
         ], 200);
 
+        $validation = array();
+
+        if ($request->get('id') > 0) {
+            $validation = [
+                'email' => 'required|email|unique:company,email,'.$request->get('id')
+            ];
+        } else {
+            $validation = [
+                'email' => 'required|email|unique:company,email'
+            ];
+        }
+
         try {
             //Validated
-            $validate = Validator::make($request->all(),
-            [
-                'email' => 'required|email|unique:student,email'
-            ]);
+            $validate = Validator::make($request->all(), $validation);
+
             if($validate->fails()){
                 $response = response()->json([
                     'status' => false,
