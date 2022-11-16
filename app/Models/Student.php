@@ -23,7 +23,8 @@ class Student extends Model
         'link',
         'about',
         'skills',
-        'rank'
+        'rank',
+        'availability'
     ];
 
     /**
