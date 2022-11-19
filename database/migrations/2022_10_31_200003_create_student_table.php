@@ -24,7 +24,7 @@ class CreateStudentTable extends Migration
             $table->text('about')->nullable();
             $table->text('skills', 200)->nullable();
             $table->string('rank', 200)->nullable();
-            $table->tinyInteger('availability')->default(0); // 0 - Not available otherwise open for work
+            $table->tinyInteger('availability')->default(1); // 1 - available open for work otherwise not open for work
             $table->timestamps();
         });
 
