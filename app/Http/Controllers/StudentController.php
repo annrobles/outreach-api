@@ -15,9 +15,18 @@ class StudentController extends Controller
      */
     public function index()
     {
+        $students = Student::all();
+
+        $studentArr = array();
+        foreach($students as $student) {
+            $student->completeSkills =  $this->processStudentCompleteSkills($student);
+            $studentArr[] = $student;
+
+        }
+
         return response()->json([
             'status' => true,
-            'student' => Student::all()
+            'student' => $studentArr
         ]);
     }
 
@@ -72,7 +81,7 @@ class StudentController extends Controller
 
         return response()->json([
             'status' => true,
-            'student_complete_skills' => $this->processStudentCompleteSkills($student),
+            'completeSkills' => $this->processStudentCompleteSkills($student),
             'student' => $student
         ], 200);
     }
