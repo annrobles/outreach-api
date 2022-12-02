@@ -31,6 +31,11 @@ class Company extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function student()
+    {
+        return $this->belongsTo(student::class);
+    }
+
     /**
      * Get the comments for the blog post.
      */
