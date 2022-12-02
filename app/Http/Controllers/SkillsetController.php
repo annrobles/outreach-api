@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Skillset;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class SkillsetController extends Controller
 {
@@ -38,13 +39,35 @@ class SkillsetController extends Controller
      */
     public function store(Request $request)
     {
-        $skillset = Skillset::create($request->all());
+        try {
+            //Validated
+            $validation = ['name' => 'required'];
 
-        return response()->json([
-            'status' => true,
-            'message' => "Skillset Created successfully!",
-            'skill' => $skillset
-        ], 200);
+            $validate = Validator::make($request->all(), $validation);
+
+            if($validate->fails()){
+                return response()->json([
+                    'status' => false,
+                    'message' => 'validation error',
+                    'errors' => $validate->errors()
+                ], 401);
+            }
+
+            $skillset = Skillset::create($request->all());
+
+            return response()->json([
+                'status' => true,
+                'message' => "Skillset Created successfully!",
+                'skill' => $skillset
+            ], 200);
+
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => $th->getMessage()
+            ], 500);
+        }
+
     }
 
     /**

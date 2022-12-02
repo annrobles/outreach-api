@@ -69,8 +69,10 @@ class StudentController extends Controller
     public function show(Student $student)
     {
         $student->load('companies', 'skillsets','skillsets.skill');
+
         return response()->json([
             'status' => true,
+            'student_complete_skills' => $this->processStudentCompleteSkills($student),
             'student' => $student
         ], 200);
     }
@@ -163,6 +165,27 @@ class StudentController extends Controller
             ], 500);
         }
         return $response;
+
+    }
+
+    private function processStudentCompleteSkills(Student $student) {
+        $skillsetArr = array();
+        if ($student->skills) {
+            array_push($skillsetArr, $student->skills);
+        }
+
+        if (count($student->skillsets)) {
+            foreach ($student->skillsets as $skills) {
+                array_push( $skillsetArr , $skills->skill->name);
+
+            }
+        }
+
+        if (count($skillsetArr)) {
+            return implode(", ",$skillsetArr);
+        } else {
+            return "";
+        }
 
     }
 }
