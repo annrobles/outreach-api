@@ -19,8 +19,7 @@ class CreateUserTable extends Migration
             $table->string('password', 100);
             $table->bigInteger('user_type_id')->unsigned();
             $table->tinyInteger('verified')->default(0);
-            // $table->tinyInteger('verification_code')->default(0);
-            // $table->tinyInteger('verification_code_validity')->default(0);
+            $table->tinyInteger('enable')->default(1);
             $table->timestamps();
         });
 

@@ -40,6 +40,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::apiResource('studentSkillset', 'StudentSkillsetController');
     Route::apiResource('studentRank', 'StudentRankController');
     Route::apiResource('companySkillset', 'CompanySkillsetController');
+    Route::apiResource('user', 'UserController');
 
     Route::post('jobs', 'JobsController@store');
     Route::put('jobs/{jobs}', 'JobsController@update');
