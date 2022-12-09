@@ -12,11 +12,18 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $users = [];
+        if ($request->has('userType')) {
+            $users = User::with('userType')->where('user_type_id', '=', $request->input('userType'))->get();
+         } else {
+            $users = User::with('userType')->get();
+         }
+
         return response()->json([
             'status' => true,
-            'users' => User::all()
+            'users' => $users
         ]);
     }
 
