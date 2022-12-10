@@ -98,13 +98,19 @@ class AuthController extends Controller
 
             $user = User::where('email', $request->email)->with('userType', 'student')->first();
 
-            return response()->json([
-                'status' => true,
-                'message' => 'User Logged In Successfully',
-                'token' => $user->createToken("API TOKEN")->plainTextToken,
-                'user' => $user
-            ], 200);
-
+            if ($user->enable) {
+                return response()->json([
+                    'status' => true,
+                    'message' => 'User Logged In Successfully',
+                    'token' => $user->createToken("API TOKEN")->plainTextToken,
+                    'user' => $user
+                ], 200);
+            } else {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'User is disabled. Please contact admin.',
+                ], 500);
+            }
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => false,

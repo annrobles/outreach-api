@@ -24,7 +24,10 @@ class Student extends Model
         'about',
         'skills',
         'rank',
-        'availability'
+        'availability',
+        'international',
+        'college_id',
+        'college_other'
     ];
 
     /**
@@ -41,5 +44,13 @@ class Student extends Model
     public function skillsets()
     {
         return $this->hasMany(StudentSkillset::class);
+    }
+
+    /**
+     * Get corresponding college.
+     */
+    public function college()
+    {
+        return $this->hasOne(College::class,'id', 'college_id');
     }
 }

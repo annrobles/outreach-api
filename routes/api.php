@@ -47,7 +47,6 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::delete('jobs/{jobs}', 'JobsController@destroy');
 });
 
-
 Route::get('jobs', 'JobsController@index');
 Route::get('jobs/{jobs}', 'JobsController@show');
 Route::get('jobs/user/{user}', 'JobsController@showByUser');

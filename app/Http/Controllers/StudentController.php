@@ -15,7 +15,7 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $students = Student::all();
+        $students = Student::with('companies', 'college')->get();
 
         $studentArr = array();
         foreach($students as $student) {
@@ -77,7 +77,7 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
-        $student->load('companies', 'skillsets','skillsets.skill');
+        $student->load('companies', 'skillsets','skillsets.skill', 'college');
 
         return response()->json([
             'status' => true,
