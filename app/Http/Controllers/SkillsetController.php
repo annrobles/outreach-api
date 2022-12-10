@@ -17,7 +17,7 @@ class SkillsetController extends Controller
     {
         return response()->json([
             'status' => true,
-            'skillset' => Skillset::all()
+            'skillset' => Skillset::orderBy('name')->get()
         ]);
     }
 
