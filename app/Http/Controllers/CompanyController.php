@@ -120,6 +120,7 @@ class CompanyController extends Controller
      */
     public function destroy(Company $company)
     {
+        $company->skillsets()->delete();
         $company->delete();
 
         return response()->json([
