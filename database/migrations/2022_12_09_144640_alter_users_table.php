@@ -15,7 +15,7 @@ class AlterUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('name', 300)->nullable();
-            $table->string('verification_token', 300)->nullable();
+            $table->string('email_verified_at', 300)->nullable();
         });
     }
 
@@ -28,7 +28,7 @@ class AlterUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('name');
-            $table->dropColumn('verification_token');
+            $table->dropColumn('email_verified_at');
         });
     }
 }

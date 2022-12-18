@@ -10,8 +10,9 @@ use App\Models\UserType;
 use App\Models\Company;
 use App\Models\Student;
 use App\Models\Jobs;
+use App\Notifications\VerifyEmail;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, Notifiable;
 
@@ -28,7 +29,7 @@ class User extends Authenticatable
         'verified',
         'enable',
         'name',
-        'verification_token'
+        'email_verified_at'
     ];
 
     /**
@@ -69,5 +70,15 @@ class User extends Authenticatable
     public function jobs()
     {
         return $this->hasMany(Jobs::class);
+    }
+
+    /**
+     * Send the email verification notification.
+     *
+     * @return void
+     */
+    public function sendEmailVerificationNotification()
+    {
+        $this->notify(new VerifyEmail);
     }
 }

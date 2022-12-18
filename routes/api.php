@@ -27,10 +27,10 @@ Route::get('/clear', function() {
 Route::post('/signup', ['as' => '', 'uses' => 'Api\AuthController@createUser']);
 Route::post('/signin', ['as' => '', 'uses' => 'Api\AuthController@loginUser']);
 
+Route::get('email/verify', 'Auth\VerificationController@show')->name('verification.notice');
+Route::get('email/verify/{id}', 'Auth\VerificationController@verify')->name('verification.verify');
+Route::get('email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::apiResource('company', 'CompanyController');

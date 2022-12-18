@@ -11,9 +11,14 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use App\Traits\AuthTokenResponses;
+use Illuminate\Foundation\Auth\ThrottlesLogins;
+use Illuminate\Auth\Events\Registered;
 
 class AuthController extends Controller
 {
+    use AuthTokenResponses, ThrottlesLogins;
+
     /**
      * Create User
      * @param Request $request
@@ -42,6 +47,8 @@ class AuthController extends Controller
                 'password' => Hash::make($request->password),
                 'user_type_id' => $request->user_type_id
             ]);
+
+            event(new Registered($user));
 
             $student  = null;
             if ( $request->user_type_id == 3 ) {
