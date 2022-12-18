@@ -27,11 +27,6 @@ Route::get('/clear', function() {
 Route::post('/signup', ['as' => '', 'uses' => 'Api\AuthController@createUser']);
 Route::post('/signin', ['as' => '', 'uses' => 'Api\AuthController@loginUser']);
 
-Route::get('email/verify', 'Auth\VerificationController@show')->name('verification.notice');
-Route::get('email/verify/{id}', 'Auth\VerificationController@verify')->name('verification.verify');
-Route::get('email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
-
-
 Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::apiResource('company', 'CompanyController');
     Route::apiResource('student', 'StudentController');
@@ -46,6 +41,10 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('jobs', 'JobsController@store');
     Route::put('jobs/{jobs}', 'JobsController@update');
     Route::delete('jobs/{jobs}', 'JobsController@destroy');
+
+    Route::post('/email/verification-notification',
+        [VerifyEmailController::class, 'resendNotification'])
+        ->name('verification.send');
 });
 
 Route::get('jobs', 'JobsController@index');

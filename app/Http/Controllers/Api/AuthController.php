@@ -23,9 +23,6 @@ class AuthController extends Controller
     public function createUser(Request $request)
     {
         try {
-            //generate random password
-            $request->merge(['password' => "password"]);
-
             //Validated
             $validateUser = Validator::make($request->all(),
             [
@@ -43,9 +40,11 @@ class AuthController extends Controller
 
             $user =  User::create([
                 'email' => $request->email,
-                'password' => Hash::make($request->password),
+                'name' => $request->name,
                 'user_type_id' => $request->user_type_id
             ]);
+
+            event(new Registered($user));
 
             $student  = null;
             if ( $request->user_type_id == 3 ) {
