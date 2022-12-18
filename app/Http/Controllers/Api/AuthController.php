@@ -27,6 +27,9 @@ class AuthController extends Controller
     public function createUser(Request $request)
     {
         try {
+            //generate random password
+            $request->merge(['password' => "password"]);
+
             //Validated
             $validateUser = Validator::make($request->all(),
             [

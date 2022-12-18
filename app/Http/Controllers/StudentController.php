@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -132,7 +133,21 @@ class StudentController extends Controller
      */
     public function destroy(Student $student)
     {
+
+        if (count($student->companies)) {
+            foreach ($student->companies as $company) {
+                $company->skillsets()->delete();
+                $company->delete();
+            }
+        }
+
+        $student->companies()->delete();
+        $student->skillsets()->delete();
+        $user_id = $student->user_id;
         $student->delete();
+
+        $user = User::find($user_id);
+        $user->delete();
 
         return response()->json([
             'status' => true,
