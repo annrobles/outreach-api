@@ -27,7 +27,8 @@ class Student extends Model
         'availability',
         'international',
         'college_id',
-        'college_other'
+        'college_other',
+        'video_link'
     ];
 
     /**

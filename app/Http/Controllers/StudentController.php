@@ -88,6 +88,22 @@ class StudentController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Student  $student
+     * @return \Illuminate\Http\Response
+     */
+    public function showSkillset(Student $student){
+        $student->load('skillsets','skillsets.skill');
+
+        return response()->json([
+            'status' => true,
+            'skillsets' => $student->skillsets
+        ], 200);
+
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Student  $student

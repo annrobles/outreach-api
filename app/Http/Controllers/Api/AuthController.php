@@ -11,6 +11,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\WelcomeMail;
 use Illuminate\Auth\Events\Registered;
 
 class AuthController extends Controller
@@ -42,6 +44,7 @@ class AuthController extends Controller
                 'email' => $request->email,
                 'name' => $request->name,
                 'user_type_id' => $request->user_type_id
+                //'password' => Hash::make('password') this is for testing purposes. should not be in live
             ]);
 
             event(new Registered($user));
@@ -101,18 +104,23 @@ class AuthController extends Controller
 
             $user = User::where('email', $request->email)->with('userType', 'student')->first();
 
-            if ($user->enable) {
+            if (!$user->enable) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'User is disabled. Please contact admin.',
+                ], 500);
+            } else if (!$user->hasVerifiedEmail()) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'User is not yet verified. Please check your email.',
+                ], 200);
+            }  else {
                 return response()->json([
                     'status' => true,
                     'message' => 'User Logged In Successfully',
                     'token' => $user->createToken("API TOKEN")->plainTextToken,
                     'user' => $user
                 ], 200);
-            } else {
-                return response()->json([
-                    'status' => false,
-                    'message' => 'User is disabled. Please contact admin.',
-                ], 500);
             }
         } catch (\Throwable $th) {
             return response()->json([

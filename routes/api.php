@@ -45,6 +45,8 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('/email/verification-notification',
         [VerifyEmailController::class, 'resendNotification'])
         ->name('verification.send');
+
+    Route::get('student/skillset/{student}', 'StudentController@showSkillset');
 });
 
 Route::get('jobs', 'JobsController@index');
