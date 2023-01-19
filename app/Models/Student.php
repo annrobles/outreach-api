@@ -28,7 +28,8 @@ class Student extends Model
         'international',
         'college_id',
         'college_other',
-        'video_link'
+        'video_link',
+        'assessment_results_link'
     ];
 
     /**
