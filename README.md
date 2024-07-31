@@ -1,61 +1,923 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Outreach Resource API
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+## Table of Contents
 
-## About Laravel
+1. [GoDaddy Credentials](#godaddy-credentials)
+2. [How to Use API Token](#how-to-use-api-token)
+3. [Authentication Resource](#authentication-resource)
+    - [Register Student](#register-student)
+    - [Login User](#login-user)
+4. [Registration Process](#registration-process)
+5. [User Resource](#user-resource)
+6. [College Resource](#college-resource)
+7. [Skillset Resource](#skillset-resource)
+8. [Student Resource](#student-resource)
+9. [Company Resource](#company-resource)
+10. [Company Skills Need Resource](#company-skills-need-resource)
+11. [Student Skill Set Resource](#student-skill-set-resource)
+12. [Student Rank Resource](#student-rank-resource)
+13. [Jobs Resource](#jobs-resource)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## How to Use API Token
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+1. Run signin with correct credentials. Copy the token from the response.
+    - **POST URL**: `/api/signin`
+    - **Method**: POST
+    - **Request Body**:
+    ```json
+    {
+        "email": "student@test.com",
+        "password": "password"
+    }
+    ```
+    - **Response**:
+    ```json
+    {
+        "status": true,
+        "message": "User Logged In Successfully",
+        "token": "9|esq0XlNou9E2hRstqNhrRloXfa2CeDpzAUAWPOSa",
+        "user": {
+            "id": 2,
+            "email": "student@test.com",
+            ...
+        }
+    }
+    ```
+2. Under Authorization, choose Type Bearer Token, then paste the token.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Authentication Resource
 
-## Learning Laravel
+### Register Student
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- **URL**: `/api/signup`
+- **Method**: POST
+- **Request Body**:
+    ```json
+    {
+        "email": "joel@test.com",
+        "name": "Joel Maique"
+    }
+    ```
+- **Response**:
+    ```json
+    {
+        "status": true,
+        "message": "User Created Successfully",
+        "token": "1|e4GFuaqWSeWKAg3ioPJpRgQL9ZwvOAg95rVKs0D7",
+        "user": {
+            "email": "joel@test.com",
+            ...
+        },
+        "student": {
+            "email": "joel@test.com",
+            ...
+        }
+    }
+    ```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Login User
 
-## Laravel Sponsors
+- **POST URL**: `/api/signin`
+- **Method**: POST
+- **Request Body**:
+    ```json
+    {
+        "email": "joel@test.com",
+        "password": "password"
+    }
+    ```
+- **Response**:
+    ```json
+    {
+        "status": true,
+        "message": "User Logged In Successfully",
+        "token": "2|cNJTVy5E8qkEUxJIcS4JrYpf4TEq7MNl27tIdugl",
+        "user": {
+            "id": 2,
+            ...
+        }
+    }
+    ```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+## Registration Process
 
-### Premium Partners
+1. Create Account:
+    - **POST URL**: `/api/signup`
+    - **Method**: POST
+    - **Request Body**:
+    ```json
+    {
+        "email": "student15@test.com",
+        "name": "Anna Parejo",
+        "user_type_id": 3
+    }
+    ```
+    - **Response**:
+    ```json
+    {
+        "status": true,
+        "message": "User Created Successfully",
+        "token": "13|bGhConberDwDzS0KVwySwFep1wB2xA1DOomrKKBS",
+        ...
+    }
+    ```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[OP.GG](https://op.gg)**
+2. Log in to Mailtrap using the credentials and check the email.
 
-## Contributing
+3. Click on verify email, and it will give you a temporary password to login.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## User Resource
 
-## Code of Conduct
+### Get All Users as Admin/Employers/Students
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+- **URL**: `/api/user`
+- **Method**: GET
+- **Query Params**: `?userType=3` (1- Admin, 2- Employers, 3-Students)
+- **Response**:
+    ```json
+    {
+        "status": true,
+        "users": [
+            {
+                "id": 1,
+                "email": "admin@worker.ca",
+                ...
+            },
+            ...
+        ]
+    }
+    ```
 
-## Security Vulnerabilities
+### Get a Specific User
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+- **URL**: `/api/user/{user_id}`
+- **Method**: GET
+- **Response**:
+    ```json
+    {
+        "status": true,
+        "user": {
+            "id": 3,
+            "email": "student2@test.com",
+            ...
+        }
+    }
+    ```
 
-## License
+### Enable/Disable User
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+- **URL**: `/api/user/{user_id}`
+- **Method**: PUT
+- **Request Body**:
+    ```json
+    {
+        "enable": 0
+    }
+    ```
+- **Response**:
+    ```json
+    {
+        "status": true,
+        "message": "User is updated successfully",
+        ...
+    }
+    ```
+
+### Update Password
+
+- **URL**: `/api/user/{user_id}`
+- **Method**: PUT
+- **Request Body**:
+    ```json
+    {
+        "password": "test1234"
+    }
+    ```
+- **Response**:
+    ```json
+    {
+        "status": true,
+        "message": "User is updated successfully",
+        ...
+    }
+    ```
+
+## College Resource
+
+### Get All Colleges
+
+- **URL**: `/api/college`
+- **Method**: GET
+- **Response**:
+    ```json
+    {
+        "status": true,
+        "colleges": [
+            {
+                "id": 1,
+                "name": "Acsenda School of Management",
+                ...
+            },
+            ...
+        ]
+    }
+    ```
+
+### Add a College
+
+- **URL**: `/api/college`
+- **Method**: POST
+- **Request Body**:
+    ```json
+    {
+        "name": "University of the Philippines"
+    }
+    ```
+- **Response**:
+    ```json
+    {
+        "status": true,
+        "message": "College Created successfully!",
+        ...
+    }
+    ```
+
+### Get a Specific College
+
+- **URL**: `/api/college/{college_id}`
+- **Method**: GET
+- **Response**:
+    ```json
+    {
+        "status": true,
+        "college": {
+            "id": 2,
+            "name": "Alexander College",
+            ...
+        }
+    }
+    ```
+
+### Update College
+
+- **URL**: `/api/college/{college_id}`
+- **Method**: PUT
+- **Request Body**:
+    ```json
+    {
+        "name": "Alex 1234"
+    }
+    ```
+- **Response**:
+    ```json
+    {
+        "status": true,
+        "message": "College Updated successfully!",
+        ...
+    }
+    ```
+
+### Delete College
+
+- **URL**: `/api/college/{college_id}`
+- **Method**: DELETE
+- **Response**:
+    ```json
+    {
+        "status": true,
+        "message": "College Deleted successfully!"
+    }
+    ```
+
+## Skillset Resource
+
+### Get All Skill Sets
+
+- **URL**: `/api/skillset`
+- **Method**: GET
+- **Response**:
+    ```json
+    {
+        "status": true,
+        "skillset": [
+            {
+                "id": 1,
+                "name": "Database",
+                ...
+            },
+            ...
+        ]
+    }
+    ```
+
+### Add a Skill Set
+
+- **URL**: `/api/skillset`
+- **Method**: POST
+- **Request Body**:
+    ```json
+    {
+        "name": "GitHub"
+    }
+    ```
+- **Response**:
+    ```json
+    {
+        "status": true,
+        "message": "Skillset Created successfully!",
+        ...
+    }
+    ```
+
+### Get a Specific Skill Set
+
+- **URL**: `/api/skillset/{skillset_id}`
+- **Method**: GET
+- **Response**:
+    ```json
+    {
+        "status": true,
+        "skill": {
+            "id": 20,
+            ...
+        }
+    }
+    ```
+
+### Update Skill Set
+
+- **URL**: `/api/skillset/{skillset_id}`
+- **Method**: PUT
+- **Request Body**:
+    ```json
+    {
+        "name": "GitHub Repository"
+    }
+    ```
+- **Response**:
+    ```json
+    {
+        "status": true,
+        "message": "Skillset Updated successfully!",
+        ...
+    }
+    ```
+
+### Delete Skill Set
+
+- **URL**: `/api/skillset/{skillset_id}`
+- **Method**: DELETE
+- **Response**:
+    ```json
+    {
+        "status": true,
+        "message": "Skillset Deleted successfully!"
+    }
+    ```
+
+## Student Resource
+
+### Get All Students
+
+- **URL**: `/api/student`
+- **Method**: GET
+- **Response**:
+    ```json
+    {
+        "status": true,
+        "students": [
+            {
+                "id": 2,
+                "email": "student15@test.com",
+                ...
+            },
+            ...
+        ]
+    }
+    ```
+
+### Add a Student
+
+- **URL**: `/api/student`
+- **Method**: POST
+- **Request Body**:
+    ```json
+    {
+        "email": "student10@test.com",
+        "user_id": 11,
+        "college_id": 5,
+        "user_type_id": 3
+    }
+    ```
+- **Response**:
+    ```json
+    {
+        "status": true,
+        "message": "Student Created successfully!",
+        ...
+    }
+    ```
+
+### Get a Specific Student
+
+- **URL**: `/api/student/{student_id}`
+- **Method**: GET
+- **Response**:
+    ```json
+    {
+        "status": true,
+        "student": {
+            "id": 3,
+            "email": "student2@test.com",
+            ...
+        }
+    }
+    ```
+
+### Update Student
+
+- **URL**: `/api/student/{student_id}`
+- **Method**: PUT
+- **Request Body**:
+    ```json
+    {
+        "email": "student2_update@test.com",
+        "user_id": 11,
+        "college_id": 5,
+        "user_type_id": 3
+    }
+    ```
+- **Response**:
+    ```json
+    {
+        "status": true,
+        "message": "Student Updated successfully!",
+        ...
+    }
+    ```
+
+### Delete Student
+
+- **URL**: `/api/student/{student_id}`
+- **Method**: DELETE
+- **Response**:
+    ```json
+    {
+        "status": true,
+        "message": "Student Deleted successfully!"
+    }
+    ```
+
+## Company Resource
+
+### Get All Companies
+
+- **URL**: `/api/company`
+- **Method**: GET
+- **Response**:
+    ```json
+    {
+        "status": true,
+        "companies": [
+            {
+                "id": 1,
+                "name": "TestCompany",
+                ...
+            },
+            ...
+        ]
+    }
+    ```
+
+### Add a Company
+
+- **URL**: `/api/company`
+- **Method**: POST
+- **Request Body**:
+    ```json
+    {
+        "name": "TestCompany",
+        "email": "test@company.com"
+    }
+    ```
+- **Response**:
+    ```json
+    {
+        "status": true,
+        "message": "Company Created successfully!",
+        ...
+    }
+    ```
+
+### Get a Specific Company
+
+- **URL**: `/api/company/{company_id}`
+- **Method**: GET
+- **Response**:
+    ```json
+    {
+        "status": true,
+        "company": {
+            "id": 1,
+            ...
+        }
+    }
+    ```
+
+### Update Company
+
+- **URL**: `/api/company/{company_id}`
+- **Method**: PUT
+- **Request Body**:
+    ```json
+    {
+        "name": "UpdatedCompany",
+        "email": "updated@company.com"
+    }
+    ```
+- **Response**:
+    ```json
+    {
+        "status": true,
+        "message": "Company Updated successfully!",
+        ...
+    }
+    ```
+
+### Delete Company
+
+- **URL**: `/api/company/{company_id}`
+- **Method**: DELETE
+- **Response**:
+    ```json
+    {
+        "status": true,
+        "message": "Company Deleted successfully!"
+    }
+    ```
+
+## Company Skills Need Resource
+
+### Get All Company Skills Needs
+
+- **URL**: `/api/company_skills_need`
+- **Method**: GET
+- **Response**:
+    ```json
+    {
+        "status": true,
+        "company_skills_need": [
+            {
+                "id": 1,
+                "company_id": 2,
+                "skillset_id": 3,
+                ...
+            },
+            ...
+        ]
+    }
+    ```
+
+### Add a Company Skills Need
+
+- **URL**: `/api/company_skills_need`
+- **Method**: POST
+- **Request Body**:
+    ```json
+    {
+        "company_id": 2,
+        "skillset_id": 3
+    }
+    ```
+- **Response**:
+    ```json
+    {
+        "status": true,
+        "message": "Company Skills Need Created successfully!",
+        ...
+    }
+    ```
+
+### Get a Specific Company Skills Need
+
+- **URL**: `/api/company_skills_need/{company_skills_need_id}`
+- **Method**: GET
+- **Response**:
+    ```json
+    {
+        "status": true,
+        "company_skills_need": {
+            "id": 1,
+            ...
+        }
+    }
+    ```
+
+### Update Company Skills Need
+
+- **URL**: `/api/company_skills_need/{company_skills_need_id}`
+- **Method**: PUT
+- **Request Body**:
+    ```json
+    {
+        "company_id": 2,
+        "skillset_id": 4
+    }
+    ```
+- **Response**:
+    ```json
+    {
+        "status": true,
+        "message": "Company Skills Need Updated successfully!",
+        ...
+    }
+    ```
+
+### Delete Company Skills Need
+
+- **URL**: `/api/company_skills_need/{company_skills_need_id}`
+- **Method**: DELETE
+- **Response**:
+    ```json
+    {
+        "status": true,
+        "message": "Company Skills Need Deleted successfully!"
+    }
+    ```
+
+## Student Skill Set Resource
+
+### Get All Student Skill Sets
+
+- **URL**: `/api/student_skill_set`
+- **Method**: GET
+- **Response**:
+    ```json
+    {
+        "status": true,
+        "student_skill_set": [
+            {
+                "id": 1,
+                "student_id": 2,
+                "skillset_id": 3,
+                ...
+            },
+            ...
+        ]
+    }
+    ```
+
+### Add a Student Skill Set
+
+- **URL**: `/api/student_skill_set`
+- **Method**: POST
+- **Request Body**:
+    ```json
+    {
+        "student_id": 2,
+        "skillset_id": 3
+    }
+    ```
+- **Response**:
+    ```json
+    {
+        "status": true,
+        "message": "Student Skill Set Created successfully!",
+        ...
+    }
+    ```
+
+### Get a Specific Student Skill Set
+
+- **URL**: `/api/student_skill_set/{student_skill_set_id}`
+- **Method**: GET
+- **Response**:
+    ```json
+    {
+        "status": true,
+        "student_skill_set": {
+            "id": 1,
+            ...
+        }
+    }
+    ```
+
+### Update Student Skill Set
+
+- **URL**: `/api/student_skill_set/{student_skill_set_id}`
+- **Method**: PUT
+- **Request Body**:
+    ```json
+    {
+        "student_id": 2,
+        "skillset_id": 4
+    }
+    ```
+- **Response**:
+    ```json
+    {
+        "status": true,
+        "message": "Student Skill Set Updated successfully!",
+        ...
+    }
+    ```
+
+### Delete Student Skill Set
+
+- **URL**: `/api/student_skill_set/{student_skill_set_id}`
+- **Method**: DELETE
+- **Response**:
+    ```json
+    {
+        "status": true,
+        "message": "Student Skill Set Deleted successfully!"
+    }
+    ```
+
+## Student Rank Resource
+
+### Get All Student Ranks
+
+- **URL**: `/api/student_rank`
+- **Method**: GET
+- **Response**:
+    ```json
+    {
+        "status": true,
+        "student_rank": [
+            {
+                "id": 1,
+                "student_id": 2,
+                "rank": 1,
+                ...
+            },
+            ...
+        ]
+    }
+    ```
+
+### Add a Student Rank
+
+- **URL**: `/api/student_rank`
+- **Method**: POST
+- **Request Body**:
+    ```json
+    {
+        "student_id": 2,
+        "rank": 1
+    }
+    ```
+- **Response**:
+    ```json
+    {
+        "status": true,
+        "message": "Student Rank Created successfully!",
+        ...
+    }
+    ```
+
+### Get a Specific Student Rank
+
+- **URL**: `/api/student_rank/{student_rank_id}`
+- **Method**: GET
+- **Response**:
+    ```json
+    {
+        "status": true,
+        "student_rank": {
+            "id": 1,
+            ...
+        }
+    }
+    ```
+
+### Update Student Rank
+
+- **URL**: `/api/student_rank/{student_rank_id}`
+- **Method**: PUT
+- **Request Body**:
+    ```json
+    {
+        "student_id": 2,
+        "rank": 2
+    }
+    ```
+- **Response**:
+    ```json
+    {
+        "status": true,
+        "message": "Student Rank Updated successfully!",
+        ...
+    }
+    ```
+
+### Delete Student Rank
+
+- **URL**: `/api/student_rank/{student_rank_id}`
+- **Method**: DELETE
+- **Response**:
+    ```json
+    {
+        "status": true,
+        "message": "Student Rank Deleted successfully!"
+    }
+    ```
+
+## Jobs Resource
+
+### Get All Jobs
+
+- **URL**: `/api/job`
+- **Method**: GET
+- **Response**:
+    ```json
+    {
+        "status": true,
+        "jobs": [
+            {
+                "id": 1,
+                "title": "Software Developer",
+                ...
+            },
+            ...
+        ]
+    }
+    ```
+
+### Add a Job
+
+- **URL**: `/api/job`
+- **Method**: POST
+- **Request Body**:
+    ```json
+    {
+        "title": "Software Developer",
+        "description": "We are looking for a skilled software developer...",
+        "company_id": 1,
+        "skillset_id": 2,
+        "student_rank_id": 3
+    }
+    ```
+- **Response**:
+    ```json
+    {
+        "status": true,
+        "message": "Job Created successfully!",
+        ...
+    }
+    ```
+
+### Get a Specific Job
+
+- **URL**: `/api/job/{job_id}`
+- **Method**: GET
+- **Response**:
+    ```json
+    {
+        "status": true,
+        "job": {
+            "id": 1,
+            "title": "Software Developer",
+            ...
+        }
+    }
+    ```
+
+### Update Job
+
+- **URL**: `/api/job/{job_id}`
+- **Method**: PUT
+- **Request Body**:
+    ```json
+    {
+        "title": "Senior Software Developer",
+        "description": "We are looking for a skilled senior software developer...",
+        "company_id": 1,
+        "skillset_id": 2,
+        "student_rank_id": 3
+    }
+    ```
+- **Response**:
+    ```json
+    {
+        "status": true,
+        "message": "Job Updated successfully!",
+        ...
+    }
+    ```
+
+### Delete Job
+
+- **URL**: `/api/job/{job_id}`
+- **Method**: DELETE
+- **Response**:
+    ```json
+    {
+        "status": true,
+        "message": "Job Deleted successfully!"
+    }
+    ```
+
+## Conclusion
+
+This README file provides the necessary information to get started with the Outreach Resource API. Follow the steps for each resource to perform CRUD operations as required. For any issues or further assistance, please contact the support team.
